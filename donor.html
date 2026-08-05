@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --success-color: #16a34a;
+            --success-dark: #15803d;
+            --warning-color: #f59e0b;
+            --warning-dark: #d97706;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-title {
+            color: #1f2937;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .donation-form {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background-color: var(--success-dark);
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+        }
+
+        .btn-warning:hover {
+            background-color: var(--warning-dark);
+        }
+
+        .donation-history {
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid #e5e7eb;
+            color: #4b5563;
+            font-weight: 600;
+        }
+
+        .history-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .history-table tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-scheduled {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-delivered {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            color: #6b7280;
+        }
+
+        .tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .donation-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            background: #f3f4f6;
+            border-radius: 6px;
+            justify-content: space-between;
+        }
+
+        .donation-item-details {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .item-quantity {
+            width: 80px;
+        }
+
+        .add-item-btn {
+            margin-top: 1rem;
+        }
+
+        .donation-items-list {
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Donor Dashboard</h1>
+        <div class="user-info">
+            <div class="user-avatar">D</div>
+            <span>Donor</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="summary-stats">
+            <div class="stat-card">
+                <div class="stat-label">Total Donations</div>
+                <div class="stat-value">24</div>
+                <div class="stat-label">Food items donated</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Recipients Helped</div>
+                <div class="stat-value">42</div>
+                <div class="stat-label">People impacted</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Next Pickup</div>
+                <div class="stat-value">Today</div>
+                <div class="stat-label">3:00 PM - 5:00 PM</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Create New Donation</h2>
+        <div class="donation-form">
+            <div class="tabs">
+                <div class="tab active" data-tab="items">Donation Details</div>
+                <div class="tab" data-tab="schedule">Schedule Pickup</div>
+            </div>
+
+            <div class="tab-content" id="items-tab">
+                <div class="form-row">
+                    <label class="form-label">Donation Items</label>
+                    <div class="donation-items-list" id="donation-items">
+                        <div class="empty-state" id="empty-items-message">
+                            No items added yet. Use the button below to add donation items.
+                        </div>
+                    </div>
+                    <button class="btn add-item-btn" id="add-item-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                        Add Item
+                    </button>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">Special Instructions</label>
+                    <textarea class="form-input" rows="3" placeholder="Any special handling instructions or allergen information"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn" id="next-to-schedule">Next: Schedule Pickup</button>
+                </div>
+            </div>
+
+            <div class="tab-content" id="schedule-tab" style="display: none;">
+                <div class="form-grid">
+                    <div class="form-row">
+                        <label class="form-label">Pickup Date</label>
+                        <input type="date" class="form-input" value="2025-03-24">
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">Pickup Time</label>
+                        <select class="form-select">
+                            <option>9:00 AM - 12:00 PM</option>
+                            <option>12:00 PM - 3:00 PM</option>
+                            <option selected>3:00 PM - 5:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">Pickup Address</label>
+                    <input type="text" class="form-input" placeholder="Street Address">
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-row">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-input" placeholder="City">
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">Postal Code</label>
+                        <input type="text" class="form-input" placeholder="Postal Code">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">Contact Phone</label>
+                    <input type="tel" class="form-input" placeholder="Phone Number">
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn" id="back-to-items">Back to Items</button>
+                    <button class="btn btn-success" id="submit-donation">Submit Donation</button>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Donation History</h2>
+        <div class="donation-history">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Items</th>
+                        <th>Status</th>
+                        <th>Recipients</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mar 21, 2025</td>
+                        <td>Rice, Dal, Vegetables</td>
+                        <td><span class="status-badge status-delivered">Delivered</span></td>
+                        <td>12</td>
+                        <td><button class="btn btn-warning">View Details</button></td>
+                    </tr>
+                    <tr>
+                        <td>Mar 18, 2025</td>
+                        <td>Eggs, Chicken, Milk</td>
+                        <td><span class="status-badge status-delivered">Delivered</span></td>
+                        <td>8</td>
+                        <td><button class="btn btn-warning">View Details</button></td>
+                    </tr>
+                    <tr>
+                        <td>Mar 23, 2025</td>
+                        <td>Bread, Fruits, Vegetables</td>
+                        <td><span class="status-badge status-scheduled">Scheduled</span></td>
+                        <td>Pending</td>
+                        <td><button class="btn btn-warning">View Details</button></td>
+                    </tr>
+                    <tr>
+                        <td>Mar 22, 2025</td>
+                        <td>Rice, Dal, Dessert</td>
+                        <td><span class="status-badge status-pending">Processing</span></td>
+                        <td>Pending</td>
+                        <td><button class="btn btn-warning">View Details</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Tab switching
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Hide all tab content
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    
+                    // Show corresponding tab content
+                    const tabId = tab.dataset.tab;
+                    document.getElementById(tabId + '-tab').style.display = 'block';
+                });
+            });
+            
+            // Next button action
+            document.getElementById('next-to-schedule').addEventListener('click', () => {
+                document.querySelector('[data-tab="items"]').classList.remove('active');
+                document.querySelector('[data-tab="schedule"]').classList.add('active');
+                document.getElementById('items-tab').style.display = 'none';
+                document.getElementById('schedule-tab').style.display = 'block';
+            });
+            
+            // Back button action
+            document.getElementById('back-to-items').addEventListener('click', () => {
+                document.querySelector('[data-tab="schedule"]').classList.remove('active');
+                document.querySelector('[data-tab="items"]').classList.add('active');
+                document.getElementById('schedule-tab').style.display = 'none';
+                document.getElementById('items-tab').style.display = 'block';
+            });
+            
+            // Add item functionality
+            const donationItems = document.getElementById('donation-items');
+            const emptyMessage = document.getElementById('empty-items-message');
+            const addItemBtn = document.getElementById('add-item-btn');
+            let itemCounter = 0;
+            
+            // Food options for dropdown
+            const foodOptions = [
+                "Rice", "Dal", "Mix Veg", "Bread", "Eggs", "Milk", 
+                "Chicken", "Dessert", "Fruits", "Lentils", "Pasta", "Flour"
+            ];
+            
+            addItemBtn.addEventListener('click', () => {
+                itemCounter++;
+                
+                // Hide empty state message when items are added
+                if (itemCounter === 1) {
+                    emptyMessage.style.display = 'none';
+                }
+                
+                const item = document.createElement('div');
+                item.className = 'donation-item';
+                
+                // Create select for food item
+                const select = document.createElement('select');
+                select.className = 'form-select';
+                
+                // Add food options to select
+                foodOptions.forEach(food => {
+                    const option = document.createElement('option');
+                    option.value = food;
+                    option.textContent = food;
+                    select.appendChild(option);
+                });
+                
+                // Create quantity input
+                const quantityInput = document.createElement('input');
+                quantityInput.type = 'number';
+                quantityInput.min = '1';
+                quantityInput.value = '1';
+                quantityInput.className = 'form-input item-quantity';
+                
+                // Create remove button
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'btn';
+                removeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/></svg>';
+                
+                // Create container for select and quantity
+                const detailsDiv = document.createElement('div');
+                detailsDiv.className = 'donation-item-details';
+                detailsDiv.appendChild(select);
+                detailsDiv.appendChild(quantityInput);
+                
+                // Add elements to item
+                item.appendChild(detailsDiv);
+                item.appendChild(removeBtn);
+                
+                // Add item to list
+                donationItems.appendChild(item);
+                
+                // Remove button functionality
+                removeBtn.addEventListener('click', () => {
+                    donationItems.removeChild(item);
+                    itemCounter--;
+                    
+                    // Show empty state if no items
+                    if (itemCounter === 0) {
+                        emptyMessage.style.display = 'block';
+                    }
+                });
+            });
+            
+            // Submit donation
+            document.getElementById('submit-donation').addEventListener('click', () => {
+                alert('Your donation has been scheduled successfully! A confirmation email has been sent to your registered email address.');
+                
+                // Reset form
+                document.querySelectorAll('.donation-item').forEach(item => {
+                    donationItems.removeChild(item);
+                });
+                itemCounter = 0;
+                emptyMessage.style.display = 'block';
+                
+                // Switch back to first tab
+                document.querySelector('[data-tab="schedule"]').classList.remove('active');
+                document.querySelector('[data-tab="items"]').classList.add('active');
+                document.getElementById('schedule-tab').style.display = 'none';
+                document.getElementById('items-tab').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

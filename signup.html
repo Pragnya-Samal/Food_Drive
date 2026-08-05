@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Signup</title>
+    <style>
+        :root {
+            --primary: #ff6b35;
+            --secondary: #2e4057;
+            --light: #f7f7f7;
+            --dark: #333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            background-image: linear-gradient(135deg, rgba(246, 246, 246, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url('/api/placeholder/1400/900');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 15px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 40px;
+            transition: var(--transition);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        
+        h2 {
+            color: var(--secondary);
+            font-size: 28px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            color: var(--dark);
+            transition: var(--transition);
+            background-color: var(--light);
+        }
+        
+        select:focus, input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 45px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background-color: #e55a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(229, 90, 42, 0.2);
+        }
+        
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+        
+        .link:hover {
+            color: var(--primary);
+        }
+        
+        .separator {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .separator hr {
+            flex: 1;
+            border: none;
+            height: 1px;
+            background-color: #eee;
+        }
+        
+        .separator span {
+            padding: 0 15px;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background: white;
+            cursor: pointer;
+            font-weight: 500;
+            color: #555;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .social-btn:hover {
+            border-color: #bbb;
+            background-color: #f9f9f9;
+        }
+        
+        .social-btn img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .terms {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .terms a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .social-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="/api/placeholder/120/60" alt="Restaurant Logo">
+            <h2>Create Account</h2>
+            <p class="subtitle">Join our restaurant platform today</p>
+        </div>
+        
+        <form action="/register" method="POST">
+            <div class="form-group">
+                <label for="role">Select Role</label>
+                <select id="role" name="role">
+                    <option value="admin">Admin</option>
+                    <option value="donor">Donor</option>
+                    <option value="customer" selected>Customer</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" placeholder="Enter your full name" name="fullname" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Choose a username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Create a password" name="password" required>
+                <span class="password-toggle">👁️</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" placeholder="Confirm your password" name="confirm_password" required>
+            </div>
+            
+            <button class="btn" type="submit">Create Account</button>
+        </form>
+        
+        <div class="separator">
+            <hr><span>Or continue with</span><hr>
+        </div>
+        
+        <div class="social-buttons">
+            <button type="button" class="social-btn">
+                <img src="/api/placeholder/20/20" alt="Google">
+                Google
+            </button>
+            <button type="button" class="social-btn">
+                <img src="/api/placeholder/20/20" alt="Facebook">
+                Facebook
+            </button>
+        </div>
+        
+        <a href="registration.html" class="link">Already have an account? Log in</a>
+        
+        <p class="terms">
+            By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+        </p>
+    </div>
+    
+    <script>
+        // Toggle password visibility
+        document.querySelector('.password-toggle').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                this.textContent = '👁️‍🗨️';
+            } else {
+                passwordInput.type = 'password';
+                this.textContent = '👁️';
+            }
+        });
+        
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Passwords do not match!');
+            }
+        });
+    </script>
+</body>
+</html>

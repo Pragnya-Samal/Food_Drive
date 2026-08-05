@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Food Drives</title>
+    <style>
+        :root {
+            --primary: #ff6b35;
+            --secondary: #2e4057;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .contact-container {
+            width: 100%;
+            max-width: 1100px;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+        }
+        
+        .contact-info {
+            background: var(--secondary);
+            color: white;
+            padding: 50px 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/500/800');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        .contact-info h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .info-item {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .info-icon {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .info-details {
+            flex-grow: 1;
+        }
+        
+        .info-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        
+        .info-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 50px;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .contact-form {
+            padding: 50px 40px;
+            background: white;
+        }
+        
+        .contact-form h2 {
+            color: var(--secondary);
+            font-size: 28px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-form h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 15px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e1e5ea;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            color: var(--dark);
+            transition: var(--transition);
+            background-color: var(--light);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #e55a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(229, 90, 42, 0.2);
+        }
+        
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+            
+            .contact-info, .contact-form {
+                padding: 40px 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .contact-info, .contact-form {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <div class="contact-info">
+            <h2>Contact Us</h2>
+            
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-details">
+                    <div class="info-title">Our Location</div>
+                    <div class="info-text">Food Drives, Gunupur, 760012, Odisha, India</div>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-icon">📧</div>
+                <div class="info-details">
+                    <div class="info-title">Email Us</div>
+                    <div class="info-text">contact@food_drives.com</div>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-icon">📞</div>
+                <div class="info-details">
+                    <div class="info-title">Call Us</div>
+                    <div class="info-text">+91 45612 58900</div>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-icon">⏰</div>
+                <div class="info-details">
+                    <div class="info-title">Opening Hours</div>
+                    <div class="info-text">Monday - Friday: 9am - 5pm<br>Saturday: 10am - 2pm</div>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" class="social-link">f</a>
+                <a href="#" class="social-link">in</a>
+                <a href="#" class="social-link">ig</a>
+                <a href="#" class="social-link">tw</a>
+            </div>
+        </div>
+        
+        <div class="contact-form">
+            <h2>Send Us a Message</h2>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact" class="form-label">Contact Number</label>
+                    <input type="tel" id="contact" name="contact" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" id="subject" name="subject" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address" class="form-label">Your Address</label>
+                    <textarea id="address" name="address" rows="2" class="form-control" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

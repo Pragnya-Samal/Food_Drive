@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --text: #334155;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header and Navigation */
+        header {
+            width: 100%;
+            background-color: var(--dark);
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+            margin: 0 0.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 0.75rem;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--light);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(245, 158, 11, 0.1);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(to right, var(--dark), var(--primary-dark));
+            color: var(--light);
+            text-align: center;
+            padding: 6rem 1rem 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem 0;
+        }
+        
+        .menu-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .menu-categories {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+        
+        .menu-content {
+            flex: 3;
+            min-width: 300px;
+        }
+        
+        .category-list {
+            list-style: none;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .category-list li {
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .category-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .category-list a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .category-list a:hover {
+            background-color: var(--gray-100);
+            color: var(--primary);
+        }
+        
+        .category-list a.active {
+            background-color: var(--accent);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .category-list a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: var(--primary);
+        }
+        
+        .category-list i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Menu Section */
+        .category-section {
+            margin-bottom: 3rem;
+        }
+        
+        .category-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .category-section h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .menu-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-item-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .menu-item h3 {
+            font-size: 1.25rem;
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            color: var(--light);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .footer-section a {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .footer-section i {
+            margin-right: 0.5rem;
+            width: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .menu-layout {
+                flex-direction: column;
+            }
+            
+            .menu-categories {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                flex-direction: column;
+                background-color: var(--dark);
+                width: 100%;
+                text-align: center;
+                transition: all 0.3s ease;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+                z-index: 99;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+            }
+            
+            .nav-links a::after {
+                display: none;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .auth-buttons {
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <title>Menu - Food Drive</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">Food<span>Drive</span></a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="menu2.html" class="active">Menu</a></li>
+                    <li><a href="recipitent-dashboard.html">Recipient</a></li>
+                    <li><a href="contactus.html">Contact Us</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="registration.html" class="btn btn-outline">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>Our Menu</h1>
+        <p>Delicious dishes for a great cause. Every purchase helps us feed those in need.</p>
+    </div>
+
+    <main class="container">
+        <div class="menu-layout">
+            <div class="menu-categories">
+                <ul class="category-list">
+                    <li><a href="#veg" class="active"><i class="fas fa-leaf"></i> Veg Dishes</a></li>
+                    <li><a href="#drinks"><i class="fas fa-glass-cheers"></i> Drinks & Juices</a></li>
+                    <li><a href="#nonveg"><i class="fas fa-drumstick-bite"></i> Non-Veg Dishes</a></li>
+                    <li><a href="#fastfood"><i class="fas fa-hamburger"></i> Fast Food</a></li>
+                    <li><a href="#desserts"><i class="fas fa-ice-cream"></i> Desserts</a></li>
+                    <li><a href="#salad"><i class="fas fa-seedling"></i> Salads</a></li>
+                </ul>
+            </div>
+
+            <div class="menu-content">
+                <section id="veg" class="category-section">
+                    <h2>Veg Dishes</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Rice</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Paratha</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Manchurian</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Chilli Gobi</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Dal Tadka</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Chilli Paneer</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Palak Paneer</h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="drinks" class="category-section">
+                    <h2>Drinks and Juices</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Masala Chai</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Mango Lassi</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Badam Milk</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Coconut Water</h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="nonveg" class="category-section">
+                    <h2>Non-Veg Dishes</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Tandoori Chicken</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Butter Chicken</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Chicken Masala</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Meatball Kofta</h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="fastfood" class="category-section">
+                    <h2>Fast Food</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Pani Puri</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Raj Kachori</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Pav Bhaji</h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="desserts" class="category-section">
+                    <h2>Desserts</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Gulab Jamun</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Rasgulla</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Kulfi</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Jalebi</h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="salad" class="category-section">
+                    <h2>Salads</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Indian Green Salad</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Kachumber Salad</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Sprouts Salad</h3>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <h3>Cucumber Raita</h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Food Drive</h3>
+                    <p>We're on a mission to reduce food waste and hunger in our community through innovative solutions and partnerships.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                    <a href="aboutus.html"><i class="fas fa-info-circle"></i> About Us</a>
+                    <a href="menu2.html"><i class="fas fa-utensils"></i> Menu</a>
+                    <a href="contactus.html"><i class="fas fa-envelope"></i> Contact Us</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, Taste City</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@fooddrive.org</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 FoodDrive. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

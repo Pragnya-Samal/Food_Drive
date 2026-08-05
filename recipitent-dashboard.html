@@ -1,0 +1,619 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipitent Dashboard</title>
+    <style>
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .quantity-button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: white;
+            cursor: pointer;
+        }
+        .quantity-display {
+            font-size: 18px;
+            font-weight: bold;
+            width: 30px;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="recipitent-dashboard.css">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Recipitent Dashboard</h1>
+    </div>
+    <div class="container">
+        <h2>Food available </h2>
+        <div class="menu">
+            <div class="item">
+                <h3>Rice</h3>
+                <div class="quantity-container">
+                    <button class="quantity-button">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button">+</button>
+                </div>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="item">
+                <h3>Dal</h3>
+                <div class="quantity-container">
+                    <button class="quantity-button">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button">+</button>
+                </div>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="item">
+                <h3>Mix veg</h3>
+                <div class="quantity-container">
+                    <button class="quantity-button">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button">+</button>
+                </div>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="item">
+                <h3>Egg curry</h3>
+                <div class="quantity-container">
+                    <button class="quantity-button">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button">+</button>
+                </div>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="item">
+                <h3>Chicken curry</h3>
+                <div class="quantity-container">
+                    <button class="quantity-button">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button">+</button>
+                </div>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="item">
+                <h3>Pakodi</h3>
+                <div class="quantity-container">
+                    <button class="quantity-button">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button">+</button>
+                </div>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="item">
+                <h3>Salad</h3>
+                <div class="quantity-container">
+                    <button class="quantity-button">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button">+</button>
+                </div>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="item">
+                <h3>Desert</h3>
+                <div class="quantity-container">
+                    <button class="quantity-button">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button">+</button>
+                </div>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipient Dashboard</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --success-color: #16a34a;
+            --success-dark: #15803d;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-title {
+            color: #1f2937;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .item h3 {
+            color: #1f2937;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .item-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .stock-info {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .in-stock {
+            color: var(--success-color);
+            font-weight: 500;
+        }
+
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .quantity-button {
+            width: 32px;
+            height: 32px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .quantity-button:hover {
+            background-color: #f3f4f6;
+        }
+
+        .quantity-display {
+            font-size: 1rem;
+            font-weight: 600;
+            width: 30px;
+            text-align: center;
+        }
+
+        .btn {
+            width: 100%;
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--success-dark);
+        }
+
+        .cart-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        .cart-count {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        #cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            background: #f3f4f6;
+            border-radius: 6px;
+        }
+
+        .cart-item-name {
+            font-weight: 500;
+        }
+
+        .cart-item-quantity {
+            color: #6b7280;
+        }
+
+        .cart-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .checkout-btn {
+            background-color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+        }
+
+        .checkout-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #6b7280;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .summary-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Recipient Dashboard</h1>
+        <div class="user-info">
+            <div class="user-avatar">U</div>
+            <span>User</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="summary-stats">
+            <div class="stat-card">
+                <div class="stat-label">Available Items</div>
+                <div class="stat-value">8</div>
+                <div class="stat-label">Food items ready for selection</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Last Order</div>
+                <div class="stat-value">2d ago</div>
+                <div class="stat-label">March 21, 2025</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Next Pickup</div>
+                <div class="stat-value">Tomorrow</div>
+                <div class="stat-label">9:00 AM - 12:00 PM</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Available Food Items</h2>
+        <div class="menu">
+            <div class="item" data-item="Rice">
+                <h3>Rice</h3>
+                <div class="item-details">
+                    <span class="stock-info">Status: <span class="in-stock">In Stock</span></span>
+                    <span class="stock-info">Limit: 2 per order</span>
+                </div>
+                <div class="quantity-container">
+                    <button class="quantity-button decrease">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button increase">+</button>
+                </div>
+                <button class="btn add-to-cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    Add to Cart
+                </button>
+            </div>
+            <div class="item" data-item="Dal">
+                <h3>Dal</h3>
+                <div class="item-details">
+                    <span class="stock-info">Status: <span class="in-stock">In Stock</span></span>
+                    <span class="stock-info">Limit: 2 per order</span>
+                </div>
+                <div class="quantity-container">
+                    <button class="quantity-button decrease">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button increase">+</button>
+                </div>
+                <button class="btn add-to-cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    Add to Cart
+                </button>
+            </div>
+            <div class="item" data-item="Mix Veg">
+                <h3>Mix Veg</h3>
+                <div class="item-details">
+                    <span class="stock-info">Status: <span class="in-stock">In Stock</span></span>
+                    <span class="stock-info">Limit: 2 per order</span>
+                </div>
+                <div class="quantity-container">
+                    <button class="quantity-button decrease">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button increase">+</button>
+                </div>
+                <button class="btn add-to-cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    Add to Cart
+                </button>
+            </div>
+            <div class="item" data-item="Egg Curry">
+                <h3>Egg Curry</h3>
+                <div class="item-details">
+                    <span class="stock-info">Status: <span class="in-stock">In Stock</span></span>
+                    <span class="stock-info">Limit: 2 per order</span>
+                </div>
+                <div class="quantity-container">
+                    <button class="quantity-button decrease">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-button increase">+</button>
+                </div>
+                <button class="btn add-to-cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+
+        <div class="cart-section">
+            <div class="cart-header">
+                <h2 class="section-title" style="margin: 0; border: none;">Your Cart</h2>
+                <div class="cart-count">0</div>
+            </div>
+            <div id="cart-container">
+                <div class="empty-cart">Your cart is empty. Add items from above.</div>
+                <ul id="cart-items" style="display: none;"></ul>
+                <div class="cart-actions" style="display: none;">
+                    <button class="btn checkout-btn">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cart = {};
+            const cartCount = document.querySelector('.cart-count');
+            const cartItems = document.getElementById("cart-items");
+            const emptyCartMessage = document.querySelector('.empty-cart');
+            const cartActions = document.querySelector('.cart-actions');
+            
+            function updateCartCount() {
+                let count = 0;
+                for (let item in cart) {
+                    count += cart[item];
+                }
+                cartCount.textContent = count;
+                
+                // Show/hide empty cart message
+                if (count > 0) {
+                    emptyCartMessage.style.display = 'none';
+                    cartItems.style.display = 'block';
+                    cartActions.style.display = 'flex';
+                } else {
+                    emptyCartMessage.style.display = 'block';
+                    cartItems.style.display = 'none';
+                    cartActions.style.display = 'none';
+                }
+            }
+            
+            // Handle quantity changes
+            document.querySelectorAll(".item").forEach(item => {
+                const increaseBtn = item.querySelector(".increase");
+                const decreaseBtn = item.querySelector(".decrease");
+                const quantityDisplay = item.querySelector(".quantity-display");
+                const addToCartBtn = item.querySelector(".add-to-cart");
+                const itemName = item.dataset.item;
+
+                increaseBtn.addEventListener("click", () => {
+                    let qty = parseInt(quantityDisplay.textContent);
+                    if (qty < 2) { // Limit to 2 (as per UI)
+                        quantityDisplay.textContent = qty + 1;
+                    }
+                });
+
+                decreaseBtn.addEventListener("click", () => {
+                    let qty = parseInt(quantityDisplay.textContent);
+                    if (qty > 1) quantityDisplay.textContent = qty - 1;
+                });
+
+                addToCartBtn.addEventListener("click", () => {
+                    let qty = parseInt(quantityDisplay.textContent);
+                    // If item exists in cart, add to its quantity, otherwise add it
+                    cart[itemName] = (cart[itemName] || 0) + qty;
+                    
+                    // Reset the quantity display
+                    quantityDisplay.textContent = "1";
+                    
+                    // Show success feedback
+                    const originalText = addToCartBtn.innerHTML;
+                    addToCartBtn.innerHTML = "Added!";
+                    addToCartBtn.style.backgroundColor = "#059669";
+                    
+                    setTimeout(() => {
+                        addToCartBtn.innerHTML = originalText;
+                        addToCartBtn.style.backgroundColor = "";
+                    }, 1000);
+                    
+                    updateCartUI();
+                    updateCartCount();
+                });
+            });
+
+            // Update Cart UI
+            function updateCartUI() {
+                cartItems.innerHTML = "";
+
+                for (let item in cart) {
+                    let li = document.createElement("li");
+                    li.className = "cart-item";
+                    
+                    let nameSpan = document.createElement("span");
+                    nameSpan.className = "cart-item-name";
+                    nameSpan.textContent = item;
+                    
+                    let qtySpan = document.createElement("span");
+                    qtySpan.className = "cart-item-quantity";
+                    qtySpan.textContent = `${cart[item]} ${cart[item] > 1 ? 'items' : 'item'}`;
+                    
+                    li.appendChild(nameSpan);
+                    li.appendChild(qtySpan);
+                    cartItems.appendChild(li);
+                }
+            }
+            
+            // Initialize cart
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

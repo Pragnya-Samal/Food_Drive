@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-dashboard.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1>Admin Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Users</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Dashboard Container -->
+    <div class="container">
+        <!-- Cards Grid -->
+        <div class="grid">
+            <!-- Inventory Management -->
+            <div class="card">
+                <h3>Inventory Management</h3>
+                <p>Monitor and update your inventory.</p>
+                <button class="btn">Track Inventory</button>
+            </div>
+            
+            <!-- View Orders -->
+            <div class="card">
+                <h3>View Orders</h3>
+                <p>Manage and process customer orders.</p>
+                <button class="btn">Manage Orders</button>
+            </div>
+
+            <!-- User Management -->
+            <div class="card">
+                <h3>User Management</h3>
+                <p>View and manage users of the system.</p>
+                <button class="btn">Manage Users</button>
+            </div>
+
+            <!-- Reports -->
+            <div class="card">
+                <h3>Reports</h3>
+                <p>Generate and review system reports.</p>
+                <button class="btn">View Reports</button>
+            </div>
+        </div>
+
+        <!-- Raw Material Stock Management -->
+        <div class="stock-management">
+            <h2>Raw Material Stock Management</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ingredient Name</th>
+                        <th>Quantity</th>
+                        <th>Available</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Flour</td>
+                        <td>50 kg</td>
+                        <td><span class="status available">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Rice</td>
+                        <td>40 kg</td>
+                        <td><span class="status available">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Paneer</td>
+                        <td>30 kg</td>
+                        <td><span class="status available">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Cauliflower</td>
+                        <td>30 kg</td>
+                        <td><span class="status available">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Sugar</td>
+                        <td>20 kg</td>
+                        <td><span class="status low">Low Stock</span></td>
+                    </tr>
+                    <tr>
+                        <td>Butter</td>
+                        <td>Out of Stock</td>
+                        <td><span class="status not-available">Not Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Milk</td>
+                        <td>100 L</td>
+                        <td><span class="status available">Available</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

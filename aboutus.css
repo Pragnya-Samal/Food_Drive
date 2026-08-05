@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-image: url("WhatsApp Image 2024-08-17 at 06.47.09_ea5a7504.jpg");
+}
+
+.about-section {
+    background: transparent;
+    padding: 60px 20px;
+    text-align: center;
+    /* From https://css.glass */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.4);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.2); 
+}
+
+h1 {
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: smaller;
+}
+
+.about-section p:last-child {
+    font-weight: bold;
+    color: #000;
+}
+
+#backgroundImg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: -1;
+
+    height: 100vh;
+    width: 100vw;
+}
+
+#backgroundImg img {
+    height: 100vh;
+    width: 100vw;
+}
